@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import useAuthStore from '../store/authStore';
+import logoFull from '../assets/logo-full.png';
 
 export default function Login() {
   const { login } = useAuthStore();
@@ -23,7 +24,7 @@ export default function Login() {
       <div className="w-full max-w-md">
         <div className="bg-card border rounded-lg p-8 shadow-sm">
           <div className="mb-8 text-center">
-            <h1 className="text-2xl font-semibold">AMRAD</h1>
+            <img src={logoFull} alt="Preferred Pay" className="h-10 mx-auto mb-2" />
             <p className="text-muted-foreground text-sm mt-1">Payment Reconciliation Admin</p>
           </div>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

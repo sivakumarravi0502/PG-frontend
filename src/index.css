@@ -4,27 +4,110 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 224 71.4% 4.1%;
+    /* Paces theme — https://themes.coderthemes.com/paces/tailwind/ */
+    --background: 228 38% 97%;        /* #f6f7fb body bg */
+    --foreground: 240 10% 33%;        /* #4c4c5c body text */
+
     --card: 0 0% 100%;
-    --card-foreground: 224 71.4% 4.1%;
-    --primary: 262.1 83.3% 57.8%;
-    --primary-foreground: 210 20% 98%;
-    --secondary: 220 14.3% 95.9%;
-    --secondary-foreground: 220.9 39.3% 11%;
-    --muted: 220 14.3% 95.9%;
-    --muted-foreground: 220 8.9% 46.1%;
-    --accent: 220 14.3% 95.9%;
-    --accent-foreground: 220.9 39.3% 11%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 262.1 83.3% 57.8%;
+    --card-foreground: 240 10% 33%;
+
+    --primary: 208 70% 46%;           /* #237bc7 — nudged from #236dc9 toward the Preferred Pay logo's blue */
+    --primary-hover: 208 70% 39%;     /* #1e68a9 */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 213 36% 95%;         /* #eef2f7 (Paces "light") */
+    --secondary-foreground: 240 10% 33%;
+
+    --muted: 213 36% 95%;
+    --muted-foreground: 216 16% 66%;  /* #9ba6b7 */
+
+    --accent: 213 36% 95%;
+    --accent-foreground: 240 10% 33%;
+
+    --destructive: 345 91% 65%;       /* #f7577e */
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 170 98% 37%;           /* #02bc9c */
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 93% 66%;            /* #f9bf59 */
+    --warning-foreground: 240 10% 20%;
+
+    --info: 193 69% 62%;              /* #5bc3e1 */
+    --info-foreground: 0 0% 100%;
+
+    --purple: 245 80% 69%;            /* #7b70ef */
+    --purple-foreground: 0 0% 100%;
+
+    --border: 210 9% 91%;             /* #e7e9eb */
+    --input: 210 9% 91%;
+    --ring: 213 70% 50%;
+
     --radius: 0.5rem;
+
+    /* Sidebar — dark navy, nudged toward the Preferred Pay logo's navy (#202858) */
+    --sidenav-bg: 230 32% 16%;        /* #1c2036 */
+    --sidenav-border: 230 28% 23%;    /* #2a304b */
+    --sidenav-item: 220 14% 75%;
+    --sidenav-item-active: 213 90% 68%;
   }
+
   * { @apply border-border; box-sizing: border-box; }
-  body { @apply bg-background text-foreground; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+  body { @apply bg-background text-foreground font-sans text-sm; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4, h5, h6 { @apply font-heading font-semibold; }
   ::-webkit-scrollbar { width: 5px; height: 5px; }
   ::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 3px; }
+}
+
+@layer components {
+  /* Cards */
+  .card { @apply bg-card text-card-foreground rounded-lg shadow-card; }
+  .card-header { @apply flex items-center justify-between px-5 py-4 border-b border-border; }
+  .card-title { @apply font-heading font-semibold text-base; }
+  .card-body { @apply p-5; }
+
+  .stat-card { @apply card p-5 flex items-start justify-between; }
+  .stat-card-label { @apply text-xs font-medium text-muted-foreground uppercase tracking-wide; }
+  .stat-card-value { @apply text-2xl font-heading font-bold mt-1; }
+  .stat-card-icon { @apply w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0; }
+
+  /* Buttons */
+  .btn-primary   { @apply inline-flex items-center justify-center gap-1.5 rounded-md bg-primary text-primary-foreground text-sm font-medium px-4 py-2 transition-colors hover:bg-[hsl(var(--primary-hover))] disabled:opacity-50 disabled:pointer-events-none; }
+  .btn-secondary { @apply inline-flex items-center justify-center gap-1.5 rounded-md bg-secondary text-secondary-foreground text-sm font-medium px-4 py-2 transition-colors hover:bg-secondary/70 disabled:opacity-50 disabled:pointer-events-none; }
+  .btn-outline   { @apply inline-flex items-center justify-center gap-1.5 rounded-md border border-border bg-transparent text-foreground text-sm font-medium px-4 py-2 transition-colors hover:bg-muted disabled:opacity-50 disabled:pointer-events-none; }
+  .btn-danger    { @apply inline-flex items-center justify-center gap-1.5 rounded-md bg-destructive text-destructive-foreground text-sm font-medium px-4 py-2 transition-colors hover:opacity-90 disabled:opacity-50 disabled:pointer-events-none; }
+  .btn-success   { @apply inline-flex items-center justify-center gap-1.5 rounded-md bg-success text-success-foreground text-sm font-medium px-4 py-2 transition-colors hover:opacity-90 disabled:opacity-50 disabled:pointer-events-none; }
+  .btn-ghost     { @apply inline-flex items-center justify-center gap-1.5 rounded-md bg-transparent text-foreground text-sm font-medium px-4 py-2 transition-colors hover:bg-muted disabled:opacity-50 disabled:pointer-events-none; }
+  .btn-sm        { @apply px-2.5 py-1 text-xs; }
+  .btn-icon      { @apply p-0 w-9 h-9; }
+
+  /* Forms */
+  .form-group          { @apply space-y-1.5; }
+  .form-label          { @apply block text-sm font-medium text-foreground; }
+  .form-label-required { @apply form-label after:content-['*'] after:text-destructive after:ml-0.5; }
+  .form-input          { @apply w-full rounded-md border border-input bg-card px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-ring disabled:opacity-50; }
+  .form-select         { @apply form-input pr-8 appearance-none bg-no-repeat; }
+  .form-textarea       { @apply form-input resize-y min-h-20; }
+  .form-error          { @apply text-xs text-destructive; }
+
+  /* Tables */
+  .table-wrapper { @apply w-full overflow-x-auto rounded-lg border border-border bg-card; }
+  .table { @apply w-full text-sm border-collapse; }
+  .table thead th { @apply px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-wide text-muted-foreground bg-muted/60 whitespace-nowrap; }
+  .table tbody td { @apply px-4 py-3 border-t border-border whitespace-nowrap; }
+  .table tbody tr { @apply hover:bg-muted/40 transition-colors; }
+
+  /* Badges — soft/tinted style, matches Paces */
+  .badge          { @apply inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-semibold; }
+  .badge-primary  { @apply badge bg-primary/15 text-primary; }
+  .badge-success  { @apply badge bg-success/15 text-success; }
+  .badge-warning  { @apply badge bg-warning/15 text-[hsl(38_93%_40%)]; }
+  .badge-danger   { @apply badge bg-destructive/15 text-destructive; }
+  .badge-info     { @apply badge bg-info/15 text-[hsl(193_69%_38%)]; }
+  .badge-secondary{ @apply badge bg-purple/15 text-purple; }
+
+  /* Row actions */
+  .action-btn-edit   { @apply p-1.5 rounded-md text-info hover:bg-info/10 transition-colors; }
+  .action-btn-view   { @apply p-1.5 rounded-md text-muted-foreground hover:bg-muted transition-colors; }
+  .action-btn-delete { @apply p-1.5 rounded-md text-destructive hover:bg-destructive/10 transition-colors; }
 }
