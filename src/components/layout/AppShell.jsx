@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import { Bell } from 'lucide-react';
+import { Outlet, useLocation } from 'react-router-dom';
+import { Bell, Menu } from 'lucide-react';
 import Sidebar from './Sidebar';
 import api from '../../api/axios';
+import logoIcon from '../../assets/logo-icon.png';
 
 export default function AppShell() {
   const [unread, setUnread] = useState(0);
   const [notifs, setNotifs] = useState([]);
   const [open, setOpen]     = useState(false);
+  const [navOpen, setNavOpen] = useState(false);
+  const location = useLocation();
 
   const fetchNotifs = async () => {
     try {
@@ -28,11 +31,22 @@ export default function AppShell() {
     return () => clearInterval(interval);
   }, []);
 
+  // Close the mobile drawer whenever the route changes (e.g. after tapping a nav link)
+  useEffect(() => { setNavOpen(false); }, [location.pathname]);
+
   return (
-    <div className="flex min-h-screen bg-background">
-      <Sidebar />
-      <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-14 border-b bg-card flex items-center justify-end px-6">
+    <div className="flex h-screen bg-background">
+      <Sidebar mobileOpen={navOpen} onClose={() => setNavOpen(false)} />
+      <div className="flex-1 flex flex-col min-w-0 min-h-0">
+        <header className="h-14 border-b bg-card flex items-center justify-between px-4 lg:px-6 shrink-0">
+          <div className="flex items-center gap-3 lg:hidden">
+            <button onClick={() => setNavOpen(true)} className="p-2 -ml-2 rounded-md hover:bg-muted transition-colors" aria-label="Open menu">
+              <Menu size={20} className="text-foreground" />
+            </button>
+            <img src={logoIcon} alt="" className="w-6 h-6" />
+            <span className="font-heading font-bold text-sm">Preferred Pay</span>
+          </div>
+          <div className="hidden lg:block" />
           <div className="relative">
             <button onClick={() => setOpen(v => !v)}
               className="p-2 rounded-md hover:bg-muted transition-colors relative">
@@ -44,7 +58,7 @@ export default function AppShell() {
               )}
             </button>
             {open && (
-              <div className="absolute right-0 top-10 w-80 bg-card border rounded-lg shadow-lg z-50 overflow-hidden">
+              <div className="fixed inset-x-4 top-16 sm:absolute sm:inset-x-auto sm:top-10 right-0 sm:w-80 bg-card border rounded-lg shadow-lg z-50 overflow-hidden">
                 <div className="px-4 py-2 border-b">
                   <p className="text-sm font-medium">Notifications</p>
                 </div>
@@ -66,7 +80,7 @@ export default function AppShell() {
             )}
           </div>
         </header>
-        <main className="flex-1 p-6 overflow-auto">
+        <main className="flex-1 p-3 sm:p-4 lg:p-6 overflow-auto min-w-0 min-h-0">
           <Outlet />
         </main>
       </div>

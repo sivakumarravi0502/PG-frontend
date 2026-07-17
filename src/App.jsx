@@ -4,15 +4,20 @@ import { Toaster } from 'react-hot-toast';
 import useAuthStore from './store/authStore';
 import AppShell from './components/layout/AppShell';
 import Login from './pages/Login';
-
-const Placeholder = ({ title }) => (
-  <div className="flex items-center justify-center h-64">
-    <div className="text-center">
-      <h2 className="text-xl font-semibold mb-2">{title}</h2>
-      <p className="text-muted-foreground text-sm">Coming in next phase</p>
-    </div>
-  </div>
-);
+import Customers from './pages/Customers';
+import DataEntry from './pages/DataEntry';
+import Payout from './pages/Payout';
+import ReferralPartner from './pages/ReferralPartner';
+import CreditCardDues from './pages/CreditCardDues';
+import Dashboard from './pages/Dashboard';
+import Reconciliation from './pages/Reconciliation';
+import BusinessFunds from './pages/BusinessFunds';
+import Users from './pages/master/Users';
+import Vendors from './pages/master/Vendors';
+import BankAccounts from './pages/master/BankAccounts';
+import CustomerCommercials from './pages/master/CustomerCommercials';
+import SpecialUserCommercials from './pages/master/SpecialUserCommercials';
+import ReferralRates from './pages/master/ReferralRates';
 
 function ProtectedRoute({ children }) {
   const { token } = useAuthStore();
@@ -29,20 +34,20 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
-          <Route index                              element={<Placeholder title="Dashboard" />} />
-          <Route path="customers"                  element={<Placeholder title="Customers" />} />
-          <Route path="data-entry"                 element={<Placeholder title="Data Entry" />} />
-          <Route path="payout"                     element={<Placeholder title="Payout" />} />
-          <Route path="referral-partner"           element={<Placeholder title="Referral Partner" />} />
-          <Route path="credit-card-dues"           element={<Placeholder title="Credit Card Dues" />} />
-          <Route path="reconciliation"             element={<Placeholder title="Reconciliation" />} />
-          <Route path="business-funds"             element={<Placeholder title="Business Funds" />} />
-          <Route path="master/users"               element={<Placeholder title="User Creation" />} />
-          <Route path="master/vendors"             element={<Placeholder title="Vendor" />} />
-          <Route path="master/bank-accounts"       element={<Placeholder title="Bank Accounts" />} />
-          <Route path="master/customer-commercials"       element={<Placeholder title="Customer Commercials" />} />
-          <Route path="master/special-user-commercials"   element={<Placeholder title="Special User Commercials" />} />
-          <Route path="master/referral-rates"      element={<Placeholder title="Referral Commission Rates" />} />
+          <Route index                              element={<Dashboard />} />
+          <Route path="customers"                  element={<Customers />} />
+          <Route path="data-entry"                 element={<DataEntry />} />
+          <Route path="payout"                     element={<Payout />} />
+          <Route path="referral-partner"           element={<ReferralPartner />} />
+          <Route path="credit-card-dues"           element={<CreditCardDues />} />
+          <Route path="reconciliation"             element={<Reconciliation />} />
+          <Route path="business-funds"             element={<BusinessFunds />} />
+          <Route path="master/users"               element={<Users />} />
+          <Route path="master/vendors"             element={<Vendors />} />
+          <Route path="master/bank-accounts"       element={<BankAccounts />} />
+          <Route path="master/customer-commercials"       element={<CustomerCommercials />} />
+          <Route path="master/special-user-commercials"   element={<SpecialUserCommercials />} />
+          <Route path="master/referral-rates"      element={<ReferralRates />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

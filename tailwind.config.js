@@ -26,6 +26,7 @@ export default {
           'item-hover': 'hsl(var(--sidenav-item-hover))',
           'item-active': 'hsl(var(--sidenav-item-active))',
         },
+        'nav-active': { DEFAULT: 'hsl(var(--nav-active-bg))', text: 'hsl(var(--nav-active-text))' },
       },
       fontFamily: {
         sans: ['Nunito', 'ui-sans-serif', 'system-ui', 'sans-serif'],

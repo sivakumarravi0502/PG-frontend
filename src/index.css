@@ -6,42 +6,46 @@
   :root {
     /* Paces theme — https://themes.coderthemes.com/paces/tailwind/ */
     --background: 228 38% 97%;        /* #f6f7fb body bg */
-    --foreground: 240 10% 33%;        /* #4c4c5c body text */
+    --foreground: 220 22% 16%;        /* #202632 — deep charcoal-navy, bolder than the original muted gray */
 
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 33%;
+    --card-foreground: 220 22% 16%;
 
-    --primary: 208 70% 46%;           /* #237bc7 — nudged from #236dc9 toward the Preferred Pay logo's blue */
-    --primary-hover: 208 70% 39%;     /* #1e68a9 */
+    --primary: 339 78% 42%;           /* #bf1852 — wine, close to the red tone but not literal red */
+    --primary-hover: 339 78% 34%;     /* #9a1342 */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 213 36% 95%;         /* #eef2f7 (Paces "light") */
-    --secondary-foreground: 240 10% 33%;
+    --secondary-foreground: 220 22% 16%;
 
     --muted: 213 36% 95%;
-    --muted-foreground: 216 16% 66%;  /* #9ba6b7 */
+    --muted-foreground: 216 16% 46%;  /* #637288 — darkened so secondary text isn't washed out */
 
     --accent: 213 36% 95%;
-    --accent-foreground: 240 10% 33%;
+    --accent-foreground: 220 22% 16%;
 
-    --destructive: 345 91% 65%;       /* #f7577e */
+    /* Multi-color accent palette — bold, well-spread hues (not shades of blue).
+       destructive sits at a warm vermillion red, on the opposite side of pure red
+       from primary's wine tone (wine leans purple/magenta, this leans orange) so
+       Delete buttons stay visually distinct from primary Create/Save buttons. */
+    --destructive: 8 78% 46%;         /* #d1321a vermillion */
     --destructive-foreground: 0 0% 100%;
 
-    --success: 170 98% 37%;           /* #02bc9c */
+    --success: 161 94% 30%;           /* #059669 emerald */
     --success-foreground: 0 0% 100%;
 
-    --warning: 38 93% 66%;            /* #f9bf59 */
-    --warning-foreground: 240 10% 20%;
+    --warning: 32 95% 44%;            /* #d97706 amber */
+    --warning-foreground: 0 0% 100%;
 
-    --info: 193 69% 62%;              /* #5bc3e1 */
+    --info: 192 91% 36%;              /* #0891b2 cyan */
     --info-foreground: 0 0% 100%;
 
-    --purple: 245 80% 69%;            /* #7b70ef */
+    --purple: 262 83% 58%;            /* #7c3aed violet */
     --purple-foreground: 0 0% 100%;
 
-    --border: 210 9% 91%;             /* #e7e9eb */
-    --input: 210 9% 91%;
-    --ring: 213 70% 50%;
+    --border: 210 12% 85%;            /* #d4d9dd — a touch darker for more definition */
+    --input: 210 12% 85%;
+    --ring: 339 78% 46%;              /* #d11a5a */
 
     --radius: 0.5rem;
 
@@ -49,12 +53,17 @@
     --sidenav-bg: 230 32% 16%;        /* #1c2036 */
     --sidenav-border: 230 28% 23%;    /* #2a304b */
     --sidenav-item: 220 14% 75%;
-    --sidenav-item-active: 213 90% 68%;
+    --sidenav-item-active: 339 85% 72%; /* #f36899 — light wine, used for the avatar initial */
+
+    /* Nav active-link highlight — deliberately frozen to blue, independent of
+       --primary. This was the original look and is unrelated to the button color. */
+    --nav-active-bg: 210 78% 42%;      /* #186bbf */
+    --nav-active-text: 213 90% 68%;    /* #6ea8f2 */
   }
 
   * { @apply border-border; box-sizing: border-box; }
   body { @apply bg-background text-foreground font-sans text-sm; -webkit-font-smoothing: antialiased; }
-  h1, h2, h3, h4, h5, h6 { @apply font-heading font-semibold; }
+  h1, h2, h3, h4, h5, h6 { @apply font-heading font-bold; }
   ::-webkit-scrollbar { width: 5px; height: 5px; }
   ::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 3px; }
 }
@@ -62,28 +71,32 @@
 @layer components {
   /* Cards */
   .card { @apply bg-card text-card-foreground rounded-lg shadow-card; }
-  .card-header { @apply flex items-center justify-between px-5 py-4 border-b border-border; }
-  .card-title { @apply font-heading font-semibold text-base; }
-  .card-body { @apply p-5; }
+  .card-header { @apply flex items-center justify-between px-4 py-3 border-b border-border; }
+  .card-title { @apply font-heading font-bold text-sm; }
+  .card-body { @apply p-4; }
 
-  .stat-card { @apply card p-5 flex items-start justify-between; }
-  .stat-card-label { @apply text-xs font-medium text-muted-foreground uppercase tracking-wide; }
-  .stat-card-value { @apply text-2xl font-heading font-bold mt-1; }
-  .stat-card-icon { @apply w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0; }
+  .stat-card { @apply card p-4 flex items-start justify-between; }
+  .stat-card-label { @apply text-[11px] font-bold text-muted-foreground uppercase tracking-wide; }
+  .stat-card-value { @apply text-xl font-heading font-bold mt-0.5; }
+  .stat-card-icon { @apply w-9 h-9 rounded-full bg-primary/15 text-primary flex items-center justify-center shrink-0; }
+  .stat-card-icon-success { @apply stat-card-icon bg-success/15 text-success; }
+  .stat-card-icon-warning { @apply stat-card-icon bg-warning/15 text-warning; }
+  .stat-card-icon-info    { @apply stat-card-icon bg-info/15 text-info; }
+  .stat-card-icon-purple  { @apply stat-card-icon bg-purple/15 text-purple; }
 
   /* Buttons */
-  .btn-primary   { @apply inline-flex items-center justify-center gap-1.5 rounded-md bg-primary text-primary-foreground text-sm font-medium px-4 py-2 transition-colors hover:bg-[hsl(var(--primary-hover))] disabled:opacity-50 disabled:pointer-events-none; }
-  .btn-secondary { @apply inline-flex items-center justify-center gap-1.5 rounded-md bg-secondary text-secondary-foreground text-sm font-medium px-4 py-2 transition-colors hover:bg-secondary/70 disabled:opacity-50 disabled:pointer-events-none; }
-  .btn-outline   { @apply inline-flex items-center justify-center gap-1.5 rounded-md border border-border bg-transparent text-foreground text-sm font-medium px-4 py-2 transition-colors hover:bg-muted disabled:opacity-50 disabled:pointer-events-none; }
-  .btn-danger    { @apply inline-flex items-center justify-center gap-1.5 rounded-md bg-destructive text-destructive-foreground text-sm font-medium px-4 py-2 transition-colors hover:opacity-90 disabled:opacity-50 disabled:pointer-events-none; }
-  .btn-success   { @apply inline-flex items-center justify-center gap-1.5 rounded-md bg-success text-success-foreground text-sm font-medium px-4 py-2 transition-colors hover:opacity-90 disabled:opacity-50 disabled:pointer-events-none; }
-  .btn-ghost     { @apply inline-flex items-center justify-center gap-1.5 rounded-md bg-transparent text-foreground text-sm font-medium px-4 py-2 transition-colors hover:bg-muted disabled:opacity-50 disabled:pointer-events-none; }
+  .btn-primary   { @apply inline-flex items-center justify-center gap-1.5 rounded-md bg-primary text-primary-foreground text-sm font-semibold px-4 py-2 transition-colors hover:bg-[hsl(var(--primary-hover))] disabled:opacity-50 disabled:pointer-events-none; }
+  .btn-secondary { @apply inline-flex items-center justify-center gap-1.5 rounded-md bg-secondary text-secondary-foreground text-sm font-semibold px-4 py-2 transition-colors hover:bg-secondary/70 disabled:opacity-50 disabled:pointer-events-none; }
+  .btn-outline   { @apply inline-flex items-center justify-center gap-1.5 rounded-md border-2 border-border bg-transparent text-foreground text-sm font-semibold px-4 py-2 transition-colors hover:bg-muted hover:border-primary/40 disabled:opacity-50 disabled:pointer-events-none; }
+  .btn-danger    { @apply inline-flex items-center justify-center gap-1.5 rounded-md bg-destructive text-destructive-foreground text-sm font-semibold px-4 py-2 transition-colors hover:opacity-90 disabled:opacity-50 disabled:pointer-events-none; }
+  .btn-success   { @apply inline-flex items-center justify-center gap-1.5 rounded-md bg-success text-success-foreground text-sm font-semibold px-4 py-2 transition-colors hover:opacity-90 disabled:opacity-50 disabled:pointer-events-none; }
+  .btn-ghost     { @apply inline-flex items-center justify-center gap-1.5 rounded-md bg-transparent text-foreground text-sm font-semibold px-4 py-2 transition-colors hover:bg-muted disabled:opacity-50 disabled:pointer-events-none; }
   .btn-sm        { @apply px-2.5 py-1 text-xs; }
   .btn-icon      { @apply p-0 w-9 h-9; }
 
   /* Forms */
   .form-group          { @apply space-y-1.5; }
-  .form-label          { @apply block text-sm font-medium text-foreground; }
+  .form-label          { @apply block text-sm font-semibold text-foreground; }
   .form-label-required { @apply form-label after:content-['*'] after:text-destructive after:ml-0.5; }
   .form-input          { @apply w-full rounded-md border border-input bg-card px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-ring disabled:opacity-50; }
   .form-select         { @apply form-input pr-8 appearance-none bg-no-repeat; }
@@ -93,18 +106,20 @@
   /* Tables */
   .table-wrapper { @apply w-full overflow-x-auto rounded-lg border border-border bg-card; }
   .table { @apply w-full text-sm border-collapse; }
-  .table thead th { @apply px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-wide text-muted-foreground bg-muted/60 whitespace-nowrap; }
-  .table tbody td { @apply px-4 py-3 border-t border-border whitespace-nowrap; }
+  .table thead th { @apply px-3 py-2 text-left text-[11px] font-bold uppercase tracking-wide text-muted-foreground bg-muted/60 whitespace-nowrap; }
+  .table tbody td { @apply px-3 py-2 border-t border-border whitespace-nowrap; }
   .table tbody tr { @apply hover:bg-muted/40 transition-colors; }
 
-  /* Badges — soft/tinted style, matches Paces */
-  .badge          { @apply inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-semibold; }
-  .badge-primary  { @apply badge bg-primary/15 text-primary; }
-  .badge-success  { @apply badge bg-success/15 text-success; }
-  .badge-warning  { @apply badge bg-warning/15 text-[hsl(38_93%_40%)]; }
-  .badge-danger   { @apply badge bg-destructive/15 text-destructive; }
-  .badge-info     { @apply badge bg-info/15 text-[hsl(193_69%_38%)]; }
-  .badge-secondary{ @apply badge bg-purple/15 text-purple; }
+  /* Badges — soft/tinted style, matches Paces. Each status/category gets its own
+     hue from the multi-color palette rather than defaulting everything to primary blue. */
+  .badge          { @apply inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-bold; }
+  .badge-primary  { @apply badge bg-primary/20 text-primary; }
+  .badge-success  { @apply badge bg-success/20 text-success; }
+  .badge-warning  { @apply badge bg-warning/20 text-warning; }
+  .badge-danger   { @apply badge bg-destructive/20 text-destructive; }
+  .badge-info     { @apply badge bg-info/20 text-info; }
+  .badge-secondary{ @apply badge bg-purple/20 text-purple; }
+  .badge-neutral  { @apply badge bg-muted text-muted-foreground; }
 
   /* Row actions */
   .action-btn-edit   { @apply p-1.5 rounded-md text-info hover:bg-info/10 transition-colors; }
