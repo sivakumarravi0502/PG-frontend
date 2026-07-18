@@ -6,6 +6,7 @@ import Drawer from '../components/ui/Drawer';
 import ViewToggle from '../components/ui/ViewToggle';
 import GridCard from '../components/ui/GridCard';
 import Pagination from '../components/ui/Pagination';
+import useViewMode from '../hooks/useViewMode';
 
 const inr = (n) => `₹${parseFloat(n || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
@@ -14,7 +15,7 @@ export default function ReferralPartner() {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
   const [drillDown, setDrillDown] = useState(null);
-  const [view, setView] = useState('list');
+  const [view, setView] = useViewMode('referral-partner');
   const [page, setPage] = useState(1);
   const limit = 20;
 

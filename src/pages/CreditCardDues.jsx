@@ -9,6 +9,7 @@ import CustomerPicker from '../components/ui/CustomerPicker';
 import ViewToggle from '../components/ui/ViewToggle';
 import GridCard from '../components/ui/GridCard';
 import Pagination from '../components/ui/Pagination';
+import useViewMode from '../hooks/useViewMode';
 
 const CARD_TYPES = [
   { value: 'visa', label: 'VISA' },
@@ -44,7 +45,7 @@ export default function CreditCardDues() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
-  const [view, setView] = useState('list');
+  const [view, setView] = useViewMode('credit-card-dues');
 
   const limit = 20;
 

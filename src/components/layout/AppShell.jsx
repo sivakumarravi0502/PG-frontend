@@ -58,7 +58,7 @@ export default function AppShell() {
               )}
             </button>
             {open && (
-              <div className="fixed inset-x-4 top-16 sm:absolute sm:inset-x-auto sm:top-10 right-0 sm:w-80 bg-card border rounded-lg shadow-lg z-50 overflow-hidden">
+              <div className="fixed left-4 right-4 top-16 sm:absolute sm:left-auto sm:right-0 sm:top-10 sm:w-80 bg-card border rounded-lg shadow-lg z-50 overflow-hidden">
                 <div className="px-4 py-2 border-b">
                   <p className="text-sm font-medium">Notifications</p>
                 </div>

@@ -11,6 +11,7 @@ import GridCard from '../../components/ui/GridCard';
 import Pagination from '../../components/ui/Pagination';
 import PgAccountsDrawer from './vendor/PgAccountsDrawer';
 import ImpsChargesSection from './vendor/ImpsChargesSection';
+import useViewMode from '../../hooks/useViewMode';
 
 export default function Vendors() {
   const [rows, setRows] = useState([]);
@@ -23,7 +24,7 @@ export default function Vendors() {
   const [editing, setEditing] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [pgDrawerVendor, setPgDrawerVendor] = useState(null);
-  const [view, setView] = useState('list');
+  const [view, setView] = useViewMode('vendors');
 
   const limit = 20;
 

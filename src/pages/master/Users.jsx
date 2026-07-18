@@ -10,6 +10,7 @@ import Modal from '../../components/ui/Modal';
 import ViewToggle from '../../components/ui/ViewToggle';
 import GridCard from '../../components/ui/GridCard';
 import Pagination from '../../components/ui/Pagination';
+import useViewMode from '../../hooks/useViewMode';
 
 const ROLES = [
   { value: 'super_admin', label: 'Super Admin' },
@@ -39,7 +40,7 @@ export default function Users() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState(null); // null = create, object = edit
   const [deleteTarget, setDeleteTarget] = useState(null);
-  const [view, setView] = useState('list');
+  const [view, setView] = useViewMode('users');
 
   const limit = 20;
 

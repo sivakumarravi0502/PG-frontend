@@ -10,6 +10,7 @@ import ViewToggle from '../components/ui/ViewToggle';
 import GridCard from '../components/ui/GridCard';
 import Pagination from '../components/ui/Pagination';
 import TransactionForm from '../components/transactions/TransactionForm';
+import useViewMode from '../hooks/useViewMode';
 
 const inr = (n) => `₹${parseFloat(n || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
@@ -25,7 +26,7 @@ export default function Payout() {
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const [view, setView] = useState('list');
+  const [view, setView] = useViewMode('payout');
 
   const limit = 20;
 

@@ -8,6 +8,7 @@ import Modal from '../../components/ui/Modal';
 import ViewToggle from '../../components/ui/ViewToggle';
 import GridCard from '../../components/ui/GridCard';
 import Pagination from '../../components/ui/Pagination';
+import useViewMode from '../../hooks/useViewMode';
 
 export default function BankAccounts() {
   const [rows, setRows] = useState([]);
@@ -20,7 +21,7 @@ export default function BankAccounts() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
-  const [view, setView] = useState('list');
+  const [view, setView] = useViewMode('bank-accounts');
 
   const limit = 20;
 

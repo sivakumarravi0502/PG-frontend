@@ -11,6 +11,7 @@ import CustomerPicker from '../components/ui/CustomerPicker';
 import ViewToggle from '../components/ui/ViewToggle';
 import GridCard from '../components/ui/GridCard';
 import Pagination from '../components/ui/Pagination';
+import useViewMode from '../hooks/useViewMode';
 
 export default function Customers() {
   const { employee } = useAuthStore();
@@ -28,7 +29,7 @@ export default function Customers() {
   const [editing, setEditing] = useState(null);
   const [viewOnly, setViewOnly] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null);
-  const [view, setView] = useState('list');
+  const [view, setView] = useViewMode('customers');
 
   const limit = 20;
 

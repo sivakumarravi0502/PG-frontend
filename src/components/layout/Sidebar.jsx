@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { LayoutDashboard, Users, ClipboardList, ArrowUpDown, GitMerge, CreditCard, BarChart3, Wallet, Settings, ChevronDown, ChevronRight, LogOut, KeyRound, X } from 'lucide-react';
 import useAuthStore from '../../store/authStore';
 import { cn } from '../../lib/utils';
-import logoIcon from '../../assets/logo-icon.png';
+import logoFull from '../../assets/logo-full.png';
 import ChangePasswordModal from './ChangePasswordModal';
 
 const NAV = [
@@ -41,18 +41,14 @@ export default function Sidebar({ mobileOpen, onClose }) {
       )}
 
       <aside className={cn(
-        'w-60 min-h-screen bg-sidenav-bg border-r border-sidenav-border flex flex-col shrink-0',
+        'w-60 min-h-screen bg-sidenav-bg border-r-0 flex flex-col shrink-0',
         'fixed inset-y-0 left-0 z-50 transition-transform duration-200 ease-in-out',
         'lg:static lg:translate-x-0 lg:z-auto',
         mobileOpen ? 'translate-x-0' : '-translate-x-full'
       )}>
-        <div className="px-5 py-4 border-b border-sidenav-border flex items-center gap-2.5">
-          <img src={logoIcon} alt="" className="w-8 h-8 shrink-0" />
-          <div className="min-w-0 flex-1">
-            <h2 className="font-heading font-bold text-sm text-white leading-tight truncate">Preferred Pay</h2>
-            <p className="text-[11px] text-sidenav-item leading-tight">Payment Reconciliation</p>
-          </div>
-          <button onClick={onClose} className="lg:hidden p-1.5 -mr-1.5 rounded-md text-sidenav-item hover:bg-white/5 hover:text-white transition-colors shrink-0" aria-label="Close menu">
+        <div className="h-14 px-4 lg:px-6 bg-card border-b border-border flex items-center justify-between shrink-0">
+          <img src={logoFull} alt="Preferred Pay" className="h-7 w-auto shrink-0" />
+          <button onClick={onClose} className="lg:hidden p-1.5 -mr-1.5 rounded-md text-muted-foreground hover:bg-muted transition-colors shrink-0" aria-label="Close menu">
             <X size={18} />
           </button>
         </div>
